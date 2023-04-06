@@ -1,0 +1,67 @@
+.about__gallery {
+  letter-spacing: 0.3rem;
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  p {
+    font-size: 1.6rem;
+    margin: 0;
+  }
+}
+
+.image__wrapper__one {
+  padding-left: 11rem;
+}
+
+.image__one {
+  background: url(../../images/1.jpg) no-repeat;
+  background-position: center;
+  width: 48rem;
+  height: 29rem;
+  margin-top: -22rem;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(1rem 1rem 1rem rgba(0, 0, 0, 1));
+}
+
+.image__description__one {
+  position: absolute;
+  z-index: 2;
+  bottom: 20rem;
+  left: 56rem;
+  filter: drop-shadow(0rem 0.5rem 1rem rgba(0, 0, 0, 0.7));
+}
+
+.image__wrapper__two {
+  padding-left: 37rem;
+  margin-top: 4rem;
+}
+
+.image__two {
+  background: url(../../images/2.jpg) no-repeat;
+  background-position: center;
+  width: 77rem;
+  height: 40rem;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0rem 1rem 1rem rgba(0, 0, 0, 1));
+}
+
+.image__description__two {
+  position: absolute;
+  z-index: 2;
+  bottom: 1rem;
+  left: 41rem;
+  filter: drop-shadow(0rem 0.5rem 1rem rgba(0, 0, 0, 0.7));
+}
+
+.footer__wrapper__about {
+  text-align: center;
+  padding: 5rem;
+  letter-spacing: 0.2rem;
+  font-size: 0.9rem;
+  color: rgb(219, 219, 219);
+}

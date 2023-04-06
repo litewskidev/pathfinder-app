@@ -10,10 +10,21 @@ body {
   font-size: $base-size;
   font-weight: $font-normal;
   color: $white;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
   max-width: 120rem;
   margin: 0 auto;
-  padding: 0 5rem;
+}
+
+#pages {
+  > * {
+    display: none;
+  }
+
+  > .active {
+    display: block;
+  }
 }

@@ -1,1 +1,26 @@
 
+#finder__grid {
+  position: relative;
+  left: 50%;
+  margin-top: -1.25rem;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.square {
+  border: 2px solid #fffffff0;
+  filter: drop-shadow(1rem 0.5rem 1rem rgba(0, 0, 0, 1));
+
+  &.path {
+    background: #ffffff8a;
+  }
+
+  &.highlight {
+    background: #93ff8980;
+  }
+
+  &.clicked {
+    background: $darkred;
+  }
+}
