@@ -10,10 +10,10 @@ export const select = {
     finder: '.finder__wrapper'
   },
 
-  widgets: {
-    description: '.finder__description',
-    map: '.finder__map',
-    button: '.finder__button'
+  elements: {
+    grid: '#finderGrid',
+    square: '#square',
+    button: '#finderBtn'
   },
 
   nav: {
@@ -22,6 +22,11 @@ export const select = {
 };
 
 export const classNames = {
+  square: {
+    square: 'square',
+    activeRoad: 'clicked'
+  },
+
   description: {
     activeDsc: 'active'
   },
