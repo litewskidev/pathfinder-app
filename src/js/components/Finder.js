@@ -13,7 +13,6 @@ class Finder{
         thisFinder.grid[row][col] = false;
       }
     }
-    console.log(thisFinder.grid);
 
     thisFinder.step = 1;
     thisFinder.render();
@@ -59,19 +58,66 @@ class Finder{
         }
       });
     }
+
     else if(thisFinder.step === 2){
+      thisFinder.saveField();
+
+      thisFinder.element.querySelector(select.elements.grid).addEventListener('click', e => {
+        e.preventDefault();
+        thisFinder.toggleStart(e.target);
+      });
+
+      thisFinder.element.querySelector(select.elements.grid).addEventListener('click', e => {
+        e.preventDefault();
+        thisFinder.toggleFinish(e.target);
+      });
+
       thisFinder.element.querySelector(select.elements.button).addEventListener('click', e => {
         e.preventDefault();
         thisFinder.changeStep(3);
       });
-      //  TO DO  //  HOW TO PASS CLICKED ??  //  LISTENER FOR START AND FINISH
     }
+
     else if(thisFinder.step === 3){
       thisFinder.element.querySelector(select.elements.button).addEventListener('click', e => {
         e.preventDefault();
         thisFinder.changeStep(1);
+        this.clearFields();
       });
-      //  TO DO  //  FIND SHORTEST PATH  //  RESET GRID
+      //  TO DO  //  FIND SHORTEST PATH
+    }
+  }
+
+  saveField(){
+    const thisFinder = this;
+    const squares = document.querySelectorAll('#square');
+
+    for(let square of squares){
+      const field = {
+        row: square.getAttribute('data-row'),
+        col: square.getAttribute('data-col')
+      };
+
+      if(thisFinder.grid[field.row][field.col]){
+        thisFinder.grid[field.row][field.col] = true;
+        square.classList.add(classNames.square.activeRoad);
+      }
+    }
+  }
+
+  clearFields(){
+    const thisFinder = this;
+    const squares = document.querySelectorAll('#square');
+
+    for(let square of squares){
+      const field = {
+        row: square.getAttribute('data-row'),
+        col: square.getAttribute('data-col')
+      };
+
+      if(thisFinder.grid[field.row][field.col]){
+        thisFinder.grid[field.row][field.col] = false;
+      }
     }
   }
 
@@ -109,6 +155,60 @@ class Finder{
 
       thisFinder.grid[field.row][field.col] = true;
       fieldElement.classList.add(classNames.square.activeRoad);
+    }
+  }
+
+  toggleStart(fieldElement){
+    const thisFinder = this;
+
+    const field = {
+      row: fieldElement.getAttribute('data-row'),
+      col: fieldElement.getAttribute('data-col')
+    };
+
+    if(thisFinder.grid[field.row][field.col] === 'start'
+        &&
+      fieldElement.classList.contains(classNames.square.start))
+    {
+      fieldElement.classList.remove(classNames.square.start);
+      thisFinder.grid[field.row][field.col] = true;
+      fieldElement.classList.add(classNames.square.activeRoad);
+    }
+    else
+    if(thisFinder.grid[field.row][field.col] === true
+        &&
+      fieldElement.classList.contains(classNames.square.activeRoad))
+    {
+      fieldElement.classList.remove(classNames.square.activeRoad);
+      thisFinder.grid[field.row][field.col] = 'start';
+      fieldElement.classList.add(classNames.square.start);
+    }
+  }
+
+  toggleFinish(fieldElement){
+    const thisFinder = this;
+
+    const field = {
+      row: fieldElement.getAttribute('data-row'),
+      col: fieldElement.getAttribute('data-col')
+    };
+
+    if(thisFinder.grid[field.row][field.col] === 'end'
+        &&
+      fieldElement.classList.contains(classNames.square.end))
+    {
+      fieldElement.classList.remove(classNames.square.end);
+      thisFinder.grid[field.row][field.col] = true;
+      fieldElement.classList.add(classNames.square.activeRoad);
+    }
+    else
+    if(thisFinder.grid[field.row][field.col] === true
+        &&
+      fieldElement.classList.contains(classNames.square.activeRoad))
+    {
+      fieldElement.classList.remove(classNames.square.activeRoad);
+      thisFinder.grid[field.row][field.col] = 'end';
+      fieldElement.classList.add(classNames.square.end);
     }
   }
 

@@ -24,7 +24,9 @@ export const select = {
 export const classNames = {
   square: {
     square: 'square',
-    activeRoad: 'clicked'
+    activeRoad: 'clicked',
+    start: 'start',
+    end: 'end'
   },
 
   description: {
