@@ -29,6 +29,9 @@ class Finder {
     this.openSet = [];
     this.start;
     this.end;
+    this.clicked = [];
+    this.edgeFields = [];
+    this.gridValues = Object.values(this.grid).map(col => Object.values(col)).flat();
 
     // INIT
     this.counter = 0;
@@ -66,6 +69,8 @@ class Finder {
       this.end = undefined;
       this.path = [];
       this.closedSet = [];
+      this.clicked = [];
+      this.edgeFields = [];
 
       this.element.querySelector(select.elements.grid).addEventListener('click', e => {
         e.preventDefault();
@@ -155,35 +160,33 @@ class Finder {
   }
 
   toggleField(fieldElement){
+
     const field = {
       row: fieldElement.getAttribute('data-row'),
       col: fieldElement.getAttribute('data-col')
     };
 
-    if (this.grid[field.row][field.col].isClicked === true){
-      this.grid[field.row][field.col].isClicked = false;
-      this.grid[field.row][field.col].isWall = true;
-      fieldElement.classList.remove(classNames.square.activeRoad);
-    }
-    else {
-      /*const gridValues = Object.values(this.grid)
-      .map(col => Object.values(col))
-      .flat();
-
-      if(gridValues.includes(true)){  //  TO DO  //  FIX ??
-
-        const edgeFields = [];
-        if(field.col > 1) edgeFields.push(this.grid[field.row][field.col-1]);
-        if(field.col < 10) edgeFields.push(this.grid[field.row][field.col+1]);
-        if(field.row > 1) edgeFields.push(this.grid[field.row+1][field.col]);
-        if(field.row < 10) edgeFields.push(this.grid[field.row-1][field.col]);
-        console.log(edgeFields);
-
-        if(!edgeFields.includes(true)){
-          alert('A new field should touch at least one that is already selected!');
-          return;
+    if (this.clicked.length > 0){
+      if (this.edgeFields.includes(this.grid[field.row][field.col])){
+        for (let square of this.gridValues) {
+          if (square.neighbors.includes(this.grid[field.row][field.col])){
+            this.edgeFields.push(square);
+          }
         }
-      }*/
+
+        this.grid[field.row][field.col].isClicked = true;
+        this.grid[field.row][field.col].isWall = false;
+        fieldElement.classList.add(classNames.square.activeRoad);
+      }
+    }
+
+    else {
+      for (let square of this.gridValues){
+        if (square.neighbors.includes(this.grid[field.row][field.col])){
+          this.edgeFields.push(square);
+        }
+      }
+      this.clicked.push(this.grid[field.row][field.col]);
 
       this.grid[field.row][field.col].isClicked = true;
       this.grid[field.row][field.col].isWall = false;

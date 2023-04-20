@@ -18,8 +18,8 @@ class Spot {
       let html = '';
       let squareHeight = 65;  //  SQUARE SIZE
       let squareWidth = 65;   //  SQUARE SIZE
-      for(let i = 0; i < 10; i++){
-        for(let j = 0; j < 10; j++){  //  GRID HEIGHT
+      for (let i = 0; i < 10; i++){
+        for (let j = 0; j < 10; j++){  //  GRID HEIGHT
           html += '<div id="square" class="square" data-row="' + j + '" data-col="' + i + '" style="width: ' + squareWidth + 'px; height: ' + squareHeight +'px"></div>';
         }
       }
@@ -48,6 +48,22 @@ class Spot {
       if (j > 0){
         this.neighbors.push(grid[i][j - 1]);
       }
+
+      // DIAGONAL
+      /*
+      if (i > 0 && j > 0){
+        this.neighbors.push(grid[i - 1][j - 1]);
+      }
+      if (i < cols - 1 && j > 0){
+        this.neighbors.push(grid[i + 1][j - 1]);
+      }
+      if (i > 0 && j < rows - 1){
+        this.neighbors.push(grid[i - 1][j + 1]);
+      }
+      if (i < cols - 1 && j < rows - 1){
+        this.neighbors.push(grid[i + 1][j + 1]);
+      }
+      */
     };
   }
 }
