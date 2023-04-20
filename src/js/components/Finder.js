@@ -159,11 +159,11 @@ class Finder {
   }
 
   toggleField(fieldElement){
-
     const field = {
       row: fieldElement.getAttribute('data-row'),
       col: fieldElement.getAttribute('data-col')
     };
+
     // PUSH TO [EDGEFIELDS]
     if (this.clicked.length > 0){
       if (this.edgeFields.includes(this.grid[field.row][field.col])){
@@ -198,7 +198,7 @@ class Finder {
       row: fieldElement.getAttribute('data-row'),
       col: fieldElement.getAttribute('data-col')
     };
-    /*  REMOVING START POINT
+
     if (this.grid[field.row][field.col].isStart === true
         &&
       fieldElement.classList.contains(classNames.square.start)
@@ -215,7 +215,6 @@ class Finder {
       this.openSet = [];
     }
     else
-    */
     if (this.grid[field.row][field.col].isClicked === true
         &&
       fieldElement.classList.contains(classNames.square.activeRoad)
@@ -238,7 +237,7 @@ class Finder {
       row: fieldElement.getAttribute('data-row'),
       col: fieldElement.getAttribute('data-col')
     };
-    /*  REMOVING END POINT
+
     if (this.grid[field.row][field.col].isEnd === true
         &&
       fieldElement.classList.contains(classNames.square.end)
@@ -254,7 +253,6 @@ class Finder {
       this.end = undefined;
     }
     else
-    */
     if (this.grid[field.row][field.col].isClicked === true
         &&
       fieldElement.classList.contains(classNames.square.activeRoad)
