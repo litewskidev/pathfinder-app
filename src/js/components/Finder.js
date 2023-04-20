@@ -6,35 +6,34 @@ class Finder {
   constructor(element){
     this.element = element;
 
-    // GRID ------------------------------------
+    //  GRID ------------------------------------
     this.cols = 10;
     this.rows = this.cols;
-    // 1D ARRAY
+    //  1D ARRAY
     this.grid = new Array(this.cols);
-    // 2D ARRAY
+    //  2D ARRAY
     for (let i = 0; i < this.cols; i++){
       this.grid[i] = new Array(this.rows);
     }
-    // SPOTS
+    //  SPOTS
     for (let i = 0; i < this.cols; i++){
       for (let j = 0; j < this.rows; j++){
         this.grid[i][j] = new Spot(i, j);
       }
-    }
-    // ------------------------------------------
+    } // ----------------------------------------
 
-    // GLOBALS
-    this.closedSet = [];
-    this.path = [];
-    this.openSet = [];
-    this.start;
-    this.end;
+    //  GLOBALS
     this.clicked = [];
     this.edgeFields = [];
+    this.path = [];
+    this.openSet = [];
+    this.closedSet = [];
+    this.counter = 0;
+    this.start;
+    this.end;
     this.gridValues = Object.values(this.grid).map(col => Object.values(col)).flat();
 
-    // INIT
-    this.counter = 0;
+    //  INIT
     this.step = 1;
     this.render();
   }
@@ -45,13 +44,13 @@ class Finder {
   }
 
   setupGrid(){
-    // NEIGHBORS
+    //  NEIGHBORS
     for (let i = 0; i < this.cols; i++){
       for (let j = 0; j < this.rows; j++){
         this.grid[i][j].addNeighbors(this.grid);
       }
     }
-    // SHOW GRID
+    //  SHOW GRID
     for (let i = 0; i < this.cols; i++){
       for (let j = 0; j < this.rows; j++){
         this.grid[i][j].showGrid();
@@ -60,7 +59,7 @@ class Finder {
   }
 
   initActions(){
-    // STEP ONE
+    //  STEP ONE
     if (this.step === 1){
 
       this.counter = 0;
@@ -84,7 +83,7 @@ class Finder {
       });
     }
 
-    // STEP TWO
+    //  STEP TWO
     else if (this.step === 2){
 
       this.saveFields();
@@ -105,7 +104,7 @@ class Finder {
       });
     }
 
-    // STEP THREE
+    //  STEP THREE
     else if (this.step === 3){
 
       this.saveFields();
@@ -164,7 +163,7 @@ class Finder {
       col: fieldElement.getAttribute('data-col')
     };
 
-    // PUSH TO [EDGEFIELDS]
+    //  PUSH TO [EDGEFIELDS]
     if (this.clicked.length > 0){
       if (this.edgeFields.includes(this.grid[field.row][field.col])){
         for (let square of this.gridValues) {
@@ -210,7 +209,7 @@ class Finder {
       fieldElement.classList.add(classNames.square.activeRoad);
       this.counter--;
 
-      // REMOVE STARTING POINT
+      //  REMOVE STARTING POINT
       this.start = undefined;
       this.openSet = [];
     }
@@ -226,7 +225,7 @@ class Finder {
       fieldElement.classList.add(classNames.square.start);
       this.counter++;
 
-      // SET STARTING POINT
+      //  SET STARTING POINT
       this.start = this.grid[field.row][field.col];
       this.openSet.push(this.start);
     }
@@ -249,7 +248,7 @@ class Finder {
       fieldElement.classList.add(classNames.square.activeRoad);
       this.counter--;
 
-      // REMOVE END POINT
+      //  REMOVE END POINT
       this.end = undefined;
     }
     else
@@ -264,7 +263,7 @@ class Finder {
       fieldElement.classList.add(classNames.square.end);
       this.counter++;
 
-      // SET END POINT
+      //  SET END POINT
       this.end = this.grid[field.row][field.col];
     }
   }
@@ -279,7 +278,7 @@ class Finder {
       }
       let current = this.openSet[lowestIndex];
 
-      // FINDING PATH
+      //  FINDING PATH
       if (current === this.end){
         let temp = current;
         this.path.push(temp);
@@ -309,7 +308,7 @@ class Finder {
             this.openSet.push(neighbor);
           }
 
-          // CALCULATE DISTANCE
+          //  CALCULATE DISTANCE
           neighbor.h = this.heuristic(neighbor, this.end);
           neighbor.f = neighbor.g + neighbor.h;
           neighbor.previous = current;
@@ -317,7 +316,7 @@ class Finder {
       }
     }
 
-    // DISPLAY RESULTS DOM
+    //  DISPLAY RESULTS DOM
     for (let i = 0; i < this.path.length; i++){
       const pathNode = this.path[i];
       document.querySelector(`[data-row="${pathNode.i}"][data-col="${pathNode.j}"]`).className = 'square path';
@@ -333,10 +332,10 @@ class Finder {
   }
 
   heuristic(a, b){
-    // euclidean
+    //  EUCLIDEAN
     //let d = euclidean(a.i, a.j, b.i, b.j);
 
-    // manhattan
+    //  MANHATTAN
     let d = Math.abs(a.i - b.i) + Math.abs(a.j - b.j);
 
     return d;
@@ -349,6 +348,7 @@ class Finder {
 
   render(){
     let pageData = null;
+
     switch (this.step){
       case 1:
         pageData = { title: 'DRAW ROUTES', btnText: 'FINISH DRAWING' };

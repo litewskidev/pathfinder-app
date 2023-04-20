@@ -49,7 +49,7 @@ class Spot {
         this.neighbors.push(grid[i][j - 1]);
       }
 
-      // DIAGONAL
+      //  DIAGONAL
       /*
       if (i > 0 && j > 0){
         this.neighbors.push(grid[i - 1][j - 1]);
