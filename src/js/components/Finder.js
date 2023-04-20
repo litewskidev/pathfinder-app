@@ -37,7 +37,6 @@ class Finder {
     this.counter = 0;
     this.step = 1;
     this.render();
-    console.log(this.grid);
   }
 
   changeStep(newStep){
@@ -165,7 +164,7 @@ class Finder {
       row: fieldElement.getAttribute('data-row'),
       col: fieldElement.getAttribute('data-col')
     };
-
+    // PUSH TO [EDGEFIELDS]
     if (this.clicked.length > 0){
       if (this.edgeFields.includes(this.grid[field.row][field.col])){
         for (let square of this.gridValues) {
@@ -199,7 +198,7 @@ class Finder {
       row: fieldElement.getAttribute('data-row'),
       col: fieldElement.getAttribute('data-col')
     };
-
+    /*  REMOVING START POINT
     if (this.grid[field.row][field.col].isStart === true
         &&
       fieldElement.classList.contains(classNames.square.start)
@@ -216,6 +215,7 @@ class Finder {
       this.openSet = [];
     }
     else
+    */
     if (this.grid[field.row][field.col].isClicked === true
         &&
       fieldElement.classList.contains(classNames.square.activeRoad)
@@ -238,7 +238,7 @@ class Finder {
       row: fieldElement.getAttribute('data-row'),
       col: fieldElement.getAttribute('data-col')
     };
-
+    /*  REMOVING END POINT
     if (this.grid[field.row][field.col].isEnd === true
         &&
       fieldElement.classList.contains(classNames.square.end)
@@ -254,6 +254,7 @@ class Finder {
       this.end = undefined;
     }
     else
+    */
     if (this.grid[field.row][field.col].isClicked === true
         &&
       fieldElement.classList.contains(classNames.square.activeRoad)
@@ -288,7 +289,7 @@ class Finder {
           this.path.push(temp.previous);
           temp = temp.previous;
         }
-        console.log('DONE!', this.path);
+        console.log('DONE!');
       }
 
       this.removeFromArray(this.openSet, current);
@@ -369,11 +370,13 @@ class Finder {
     this.setupGrid();
     this.initActions();
 
+    console.log('---------------------------------------------------');
     console.log('path:', this.path);
     console.log('open:', this.openSet);
     console.log('closed:', this.closedSet);
     console.log('start:', this.start);
     console.log('end:', this.end);
+    console.log('---------------------------------------------------');
   }
 }
 
