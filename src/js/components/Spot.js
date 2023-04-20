@@ -12,6 +12,7 @@ class Spot {
     this.isClicked = false;
     this.isStart = false;
     this.isEnd = false;
+    this.isWall = true;
 
     this.showGrid = function (){
       let html = '';

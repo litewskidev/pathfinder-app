@@ -2,36 +2,40 @@
 import { classNames, select, templates } from '../settings.js';
 import Spot from './Spot.js';
 
-class Finder{
+class Finder {
   constructor(element){
     const thisFinder = this;
     thisFinder.element = element;
 
+    // GRID ------------------------------------
     thisFinder.cols = 10;
     thisFinder.rows = thisFinder.cols;
-
     // 1D ARRAY
     thisFinder.grid = new Array(thisFinder.cols);
     // 2D ARRAY
-    for (let i = 0; i < this.cols; i++){
-      this.grid[i] = new Array(this.rows);
+    for (let i = 0; i < thisFinder.cols; i++){
+      thisFinder.grid[i] = new Array(thisFinder.rows);
     }
     // SPOTS
-    for (let i = 0; i < this.cols; i++){
-      for (let j = 0; j < this.rows; j++){
-        this.grid[i][j] = new Spot(i, j);
+    for (let i = 0; i < thisFinder.cols; i++){
+      for (let j = 0; j < thisFinder.rows; j++){
+        thisFinder.grid[i][j] = new Spot(i, j);
       }
     }
+    // ------------------------------------------
 
+    // GLOBALS
     thisFinder.closedSet = [];
     thisFinder.path = [];
     thisFinder.openSet = [];
     thisFinder.start;
     thisFinder.end;
 
+    // INIT
     thisFinder.counter = 0;
     thisFinder.step = 1;
     thisFinder.render();
+    console.log(thisFinder.grid);
   }
 
   changeStep(newStep){
@@ -42,125 +46,33 @@ class Finder{
   }
 
   setupGrid(){
+    const thisFinder = this;
+
     // NEIGHBORS
-    for (let i = 0; i < this.cols; i++){
-      for (let j = 0; j < this.rows; j++){
-        this.grid[i][j].addNeighbors(this.grid);
+    for (let i = 0; i < thisFinder.cols; i++){
+      for (let j = 0; j < thisFinder.rows; j++){
+        thisFinder.grid[i][j].addNeighbors(thisFinder.grid);
       }
     }
     // SHOW GRID
-    for (let i = 0; i < this.cols; i++){
-      for (let j = 0; j < this.rows; j++){
-        this.grid[i][j].showGrid();
+    for (let i = 0; i < thisFinder.cols; i++){
+      for (let j = 0; j < thisFinder.rows; j++){
+        thisFinder.grid[i][j].showGrid();
       }
     }
-
-    // START
-    //this.start = this.grid[0][0];
-    // END
-    //this.end = this.grid[9][9];
-    // PUSH START TO [OPENSET]
-    //this.openSet.push(this.start);
-
-    console.log(this.grid);
-  }
-
-  searchPath(){
-    while (this.openSet.length > 0){
-      let lowestIndex = 0;
-      for (let i = 0; i < this.openSet.length; i++){
-        if (this.openSet[i].f < this.openSet[lowestIndex].f){
-          lowestIndex = i;
-        }
-      }
-      let current = this.openSet[lowestIndex];
-
-      // FINDING PATH
-      if (current === this.end){
-        let temp = current;
-        this.path.push(temp);
-        while (temp.previous){
-          this.path.push(temp.previous);
-          temp = temp.previous;
-        }
-        console.log('DONE!', this.path);
-      }
-
-      this.removeFromArray(this.openSet, current);
-      this.closedSet.push(current);
-
-      let neighbors = current.neighbors;
-
-      for (let i = 0; i < neighbors.length; i++){
-        let neighbor = neighbors[i];
-
-        if (!this.closedSet.includes(neighbor)){
-          let tempG = current.g + 1;
-          if (this.openSet.includes(neighbor)){
-            if (tempG < neighbor.g){
-              neighbor.g = tempG;
-            }
-          } else {
-            neighbor.g = tempG;
-            this.openSet.push(neighbor);
-          }
-
-          // CALCULATE DISTANCE
-          neighbor.h = this.heuristic(neighbor, this.end);
-          neighbor.f = neighbor.g + neighbor.h;
-          neighbor.previous = current;
-        }
-      }
-    }
-
-    // DISPLAY RESULTS DOM
-
-    for (let i = 0; i < this.path.length; i++){
-      const pathNode = this.path[i];
-      document.querySelector(`[data-row="${pathNode.i}"][data-col="${pathNode.j}"]`).className = 'square path';
-    }
-
-    /*
-    for (let i = 0; i < this.closedSet.length; i++){
-      const closedNode = this.closedSet[i];
-      document.querySelector(`[data-row="${closedNode.i}"][data-col="${closedNode.j}"]`).className = 'square closed';
-    }
-
-    for (let i = 0; i < this.openSet.length; i++){
-      const openNode = this.openSet[i];
-      document.querySelector(`[data-row="${openNode.i}"][data-col="${openNode.j}"]`).className = 'square open';
-    }
-    */
-  }
-
-  removeFromArray(arr, elem){
-    for (let i = arr.length - 1; i >= 0; i--){
-      if (arr[i] === elem){
-        arr.splice(i, 1);
-      }
-    }
-  }
-
-  heuristic(a, b){
-    // euclidean
-    //let d = euclidean(a.i, a.j, b.i, b.j);
-
-    // manhattan
-    let d = Math.abs(a.i - b.i) + Math.abs(a.j - b.j);
-
-    return d;
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  euclidean(x1, y1, x2, y2){
-    return Math.sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));
   }
 
   initActions(){
     const thisFinder = this;
 
+    // STEP ONE
     if(thisFinder.step === 1){
+
       thisFinder.counter = 0;
+      thisFinder.start = undefined;
+      thisFinder.end = undefined;
+      thisFinder.path = [];
+      thisFinder.closedSet = [];
 
       thisFinder.element.querySelector(select.elements.grid).addEventListener('click', e => {
         e.preventDefault();
@@ -174,9 +86,10 @@ class Finder{
         thisFinder.changeStep(2);
       });
     }
-
+    // STEP TWO
     else if(thisFinder.step === 2){
-      thisFinder.saveField();
+
+      thisFinder.saveFields();
 
       thisFinder.element.querySelector(select.elements.grid).addEventListener('click', e => {
         e.preventDefault();
@@ -193,9 +106,10 @@ class Finder{
         thisFinder.changeStep(3);
       });
     }
-
+    // STEP THREE
     else if(thisFinder.step === 3){
 
+      thisFinder.saveFields();
       thisFinder.searchPath();
 
       thisFinder.element.querySelector(select.elements.button).addEventListener('click', e => {
@@ -206,7 +120,7 @@ class Finder{
     }
   }
 
-  saveField(){
+  saveFields(){
     const thisFinder = this;
     const squares = thisFinder.element.querySelectorAll('#square');
 
@@ -241,6 +155,9 @@ class Finder{
       if(thisFinder.grid[field.row][field.col].isEnd === true){
         thisFinder.grid[field.row][field.col].isEnd = false;
       }
+      if(thisFinder.grid[field.row][field.col].isWall === false){
+        thisFinder.grid[field.row][field.col].isWall = true;
+      }
     }
   }
 
@@ -254,6 +171,7 @@ class Finder{
 
     if(thisFinder.grid[field.row][field.col].isClicked === true){
       thisFinder.grid[field.row][field.col].isClicked = false;
+      thisFinder.grid[field.row][field.col].isWall = true;
       fieldElement.classList.remove(classNames.square.activeRoad);
     }
     else {
@@ -277,6 +195,7 @@ class Finder{
       }*/
 
       thisFinder.grid[field.row][field.col].isClicked = true;
+      thisFinder.grid[field.row][field.col].isWall = false;
       fieldElement.classList.add(classNames.square.activeRoad);
     }
   }
@@ -299,6 +218,10 @@ class Finder{
       fieldElement.classList.remove(classNames.square.start);
       fieldElement.classList.add(classNames.square.activeRoad);
       thisFinder.counter--;
+
+      // REMOVE STARTING POINT
+      thisFinder.start = undefined;
+      thisFinder.openSet = [];
     }
     else
     if(thisFinder.grid[field.row][field.col].isClicked === true
@@ -312,10 +235,9 @@ class Finder{
       fieldElement.classList.add(classNames.square.start);
       thisFinder.counter++;
 
-      // STARTING POINT
-      this.start = thisFinder.grid[field.row][field.col];
-      this.openSet.push(this.start);
-      console.log(this.start);
+      // SET STARTING POINT
+      thisFinder.start = thisFinder.grid[field.row][field.col];
+      thisFinder.openSet.push(thisFinder.start);
     }
   }
 
@@ -337,6 +259,9 @@ class Finder{
       fieldElement.classList.remove(classNames.square.end);
       fieldElement.classList.add(classNames.square.activeRoad);
       thisFinder.counter--;
+
+      // REMOVE END POINT
+      thisFinder.end = undefined;
     }
     else
     if(thisFinder.grid[field.row][field.col].isClicked === true
@@ -350,11 +275,89 @@ class Finder{
       fieldElement.classList.add(classNames.square.end);
       thisFinder.counter++;
 
-
-      // END POINT
-      this.end = thisFinder.grid[field.row][field.col];
-      console.log(this.end);
+      // SET END POINT
+      thisFinder.end = thisFinder.grid[field.row][field.col];
     }
+  }
+
+  searchPath(){
+    const thisFinder = this;
+
+    while (thisFinder.openSet.length > 0){
+      let lowestIndex = 0;
+      for (let i = 0; i < thisFinder.openSet.length; i++){
+        if (thisFinder.openSet[i].f < thisFinder.openSet[lowestIndex].f){
+          lowestIndex = i;
+        }
+      }
+      let current = thisFinder.openSet[lowestIndex];
+
+      // FINDING PATH
+      if (current === thisFinder.end){
+        let temp = current;
+        thisFinder.path.push(temp);
+        while (temp.previous){
+          thisFinder.path.push(temp.previous);
+          temp = temp.previous;
+        }
+        console.log('DONE!', thisFinder.path);
+      }
+
+      thisFinder.removeFromArray(thisFinder.openSet, current);
+      thisFinder.closedSet.push(current);
+
+      let neighbors = current.neighbors;
+
+      for (let i = 0; i < neighbors.length; i++){
+        let neighbor = neighbors[i];
+
+        if (!thisFinder.closedSet.includes(neighbor) && !neighbor.isWall){
+          let tempG = current.g + 1;
+          if (thisFinder.openSet.includes(neighbor)){
+            if (tempG < neighbor.g){
+              neighbor.g = tempG;
+            }
+          } else {
+            neighbor.g = tempG;
+            thisFinder.openSet.push(neighbor);
+          }
+
+          // CALCULATE DISTANCE
+          neighbor.h = thisFinder.heuristic(neighbor, thisFinder.end);
+          neighbor.f = neighbor.g + neighbor.h;
+          neighbor.previous = current;
+        }
+      }
+    }
+
+    // DISPLAY RESULTS DOM
+    for (let i = 0; i < thisFinder.path.length; i++){
+      const pathNode = thisFinder.path[i];
+      document.querySelector(`[data-row="${pathNode.i}"][data-col="${pathNode.j}"]`).className = 'square path';
+    }
+  }
+
+  removeFromArray(arr, elem){
+    for (let i = arr.length - 1; i >= 0; i--){
+      if (arr[i] === elem){
+        arr.splice(i, 1);
+      }
+    }
+  }
+
+  heuristic(a, b){
+    // euclidean
+    //let d = euclidean(a.i, a.j, b.i, b.j);
+
+    // manhattan
+    let d = Math.abs(a.i - b.i) + Math.abs(a.j - b.j);
+
+    return d;
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  euclidean(x1, y1, x2, y2){
+    return Math.sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));
   }
 
   render(){
@@ -379,6 +382,12 @@ class Finder{
     thisFinder.element.innerHTML = generatedHTML;
     thisFinder.setupGrid();
     thisFinder.initActions();
+
+    console.log('path:', this.path);
+    console.log('open:', this.openSet);
+    console.log('closed:', this.closedSet);
+    console.log('start:', this.start);
+    console.log('end:', this.end);
   }
 }
 
