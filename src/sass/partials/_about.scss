@@ -66,3 +66,51 @@
   font-size: 0.9rem;
   color: rgb(219, 219, 219);
 }
+
+@media screen and (max-width: 480px) {
+  .about__gallery {
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
+  }
+
+  .image__wrapper__one {
+    padding: 0;
+  }
+
+  .image__one {
+    width: 37rem;
+    height: 20rem;
+    margin-top: -5rem;
+  }
+
+  .image__two {
+    width: 37rem;
+    height: 20rem;
+  }
+
+  .image__wrapper__two {
+    padding: 0;
+  }
+
+  .image__description__two {
+    width: 25rem;
+    bottom: -6.5rem;
+    left: 15rem;
+  }
+
+  .image__description__one {
+    width: 25rem;
+    bottom: -30.5rem;
+    left: 15rem;
+  }
+
+  .footer__wrapper__about {
+    margin-top: 7.5rem;
+  }
+}

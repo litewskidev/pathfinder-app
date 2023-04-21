@@ -49,3 +49,21 @@
     margin-right: 2.7rem;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .page__title{
+    margin-top: 4rem;
+
+    h1 {
+      font-size: 2rem;
+      letter-spacing: 2.1rem;
+      margin-right: -2rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      margin-right: -0.4rem;
+      letter-spacing: 0.55rem;
+    }
+  }
+}

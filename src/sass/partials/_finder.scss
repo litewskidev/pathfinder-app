@@ -66,3 +66,25 @@
   font-size: 0.9rem;
   color: rgb(219, 219, 219);
 }
+
+@media screen and (max-width: 480px) {
+  #finderGrid {
+    margin-top: 8rem;
+  }
+
+  .finder__description {
+    left: 80%;
+    text-align: center;
+    font-size: 1.6rem;
+    width: 100%;
+    margin-top: -22rem;
+  }
+
+  .finder__button {
+    margin-top: -19rem;
+  }
+
+  .footer__wrapper__finder {
+    padding-top: 10.5rem;
+  }
+}

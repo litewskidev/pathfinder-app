@@ -368,7 +368,7 @@ class Finder {
 
   render(){
     const thisFinder = this;
-    
+
     let pageData = null;
 
     switch (thisFinder.step){

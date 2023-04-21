@@ -25,6 +25,12 @@ body {
   }
 
   > .active {
-    display: block;
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  html {
+    width: 40.5rem;
   }
 }
