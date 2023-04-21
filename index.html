@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+    <title>Pathfinder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__wrapper">
+          <div class="nav__wrapper">
+            <div class="main__nav">
+              <a href="#about">ABOUT</a>
+              <a href="#finder">FINDER</a>
+            </div>
+          </div>
+          <div class="title__wrapper">
+            <div class="page__title">
+              <h1>PATHFINDER</h1>
+              <h2>FOR TRAVELLERS</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div id="pages">
+      <section id="about">
+        <div class="container about__wrapper"></div>
+      </section>
+      <section id="finder">
+        <div class="container finder__wrapper"></div>
+      </section>
+    </div>
+
+    <script id="template__about__widget" type="text/x-handlebars-template">
+      <div class="about__widget">
+        <div class="about__gallery">
+          <div class="image__wrapper__one">
+            <div class="image__one"></div>
+            <div class="image__description__one">
+              <h2>PLAN YOUR JOURNEYS</h2>
+              <p>Pick attractions and book hotels</p>
+            </div>
+          </div>
+          <div class="image__wrapper__two">
+            <div class="image__two"></div>
+            <div class="image__description__two">
+              <h2>MINIMALIZE BOREDOM</h2>
+              <p>Pick routes that are short and attractive</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer__wrapper__about">
+          <p>All rights reserved</p>
+        </div>
+      </div>
+    </script>
+
+    <script id="template__finder__widget" type="text/x-handlebars-template">
+      <div class="finder__widget">
+        <div class="finder__main">
+          <div class="finder__description">
+            <h2 id="finderDsc">{{ title }}</h2>
+          </div>
+          <div class="finder__map">
+            <div id="finderGrid"></div>
+          </div>
+          <div class="finder__button">
+            <button id="finderBtn">{{ btnText }}</button>
+          </div>
+        </div>
+        <div class="footer__wrapper__finder">
+          <p>All rights reserved</p>
+        </div>
+      </div>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+    <script src="js/app.js" type="module"></script>
+  </body>
+</html>
