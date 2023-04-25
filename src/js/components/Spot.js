@@ -2,22 +2,25 @@ import { select } from '../settings.js';
 
 class Spot {
   constructor(i, j){
-    this.i = i;
-    this.j = j;
-    this.f = 0;
-    this.g = 0;
-    this.h = 0;
-    this.neighbors = [];
-    this.previous = undefined;
-    this.isClicked = false;
-    this.isStart = false;
-    this.isEnd = false;
-    this.isWall = true;
+    const thisFinder = this;
 
-    this.showGrid = function (){
+    thisFinder.i = i;
+    thisFinder.j = j;
+    thisFinder.f = 0;
+    thisFinder.g = 0;
+    thisFinder.h = 0;
+    thisFinder.neighbors = [];
+    thisFinder.previous = undefined;
+    thisFinder.isClicked = false;
+    thisFinder.isStart = false;
+    thisFinder.isEnd = false;
+    thisFinder.isWall = true;
+
+    thisFinder.showGrid = () => {
       let html = '';
       let squareHeight = 64;  //  SQUARE SIZE
       let squareWidth = 64;   //  SQUARE SIZE
+
       for (let i = 0; i < 10; i++){
         for (let j = 0; j < 10; j++){  //  GRID HEIGHT
           html += '<div id="square" class="square" data-row="' + j + '" data-col="' + i + '" style="width: ' + squareWidth + 'px; height: ' + squareHeight +'px"></div>';
@@ -31,37 +34,38 @@ class Spot {
       grid.innerHTML = html;
     };
 
-    this.addNeighbors = function (grid){
+    thisFinder.addNeighbors = (grid) => {
       let cols = 10;
       let rows = cols;
-      let i = this.i;
-      let j = this.j;
+      let i = thisFinder.i;
+      let j = thisFinder.j;
+
       if (i < cols - 1){
-        this.neighbors.push(grid[i + 1][j]);
+        thisFinder.neighbors.push(grid[i + 1][j]);
       }
       if (i > 0){
-        this.neighbors.push(grid[i - 1][j]);
+        thisFinder.neighbors.push(grid[i - 1][j]);
       }
       if (j < rows - 1){
-        this.neighbors.push(grid[i][j + 1]);
+        thisFinder.neighbors.push(grid[i][j + 1]);
       }
       if (j > 0){
-        this.neighbors.push(grid[i][j - 1]);
+        thisFinder.neighbors.push(grid[i][j - 1]);
       }
 
       //  DIAGONAL
       /*
       if (i > 0 && j > 0){
-        this.neighbors.push(grid[i - 1][j - 1]);
+        thisFinder.neighbors.push(grid[i - 1][j - 1]);
       }
       if (i < cols - 1 && j > 0){
-        this.neighbors.push(grid[i + 1][j - 1]);
+        thisFinder.neighbors.push(grid[i + 1][j - 1]);
       }
       if (i > 0 && j < rows - 1){
-        this.neighbors.push(grid[i - 1][j + 1]);
+        thisFinder.neighbors.push(grid[i - 1][j + 1]);
       }
       if (i < cols - 1 && j < rows - 1){
-        this.neighbors.push(grid[i + 1][j + 1]);
+        thisFinder.neighbors.push(grid[i + 1][j + 1]);
       }
       */
     };
