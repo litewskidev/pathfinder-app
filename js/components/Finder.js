@@ -120,8 +120,8 @@ class Finder {
 
       thisFinder.element.querySelector(select.elements.button).addEventListener('click', e => {
         e.preventDefault();
-        thisFinder.changeStep(1);
         thisFinder.clearFields();
+        thisFinder.changeStep(1);
       });
     }
   }
@@ -154,18 +154,15 @@ class Finder {
         col: square.getAttribute('data-col')
       };
 
-      if (thisFinder.grid[field.row][field.col].isClicked === true){
-        thisFinder.grid[field.row][field.col].isClicked = false;
-      }
-      if (thisFinder.grid[field.row][field.col].isStart === true){
-        thisFinder.grid[field.row][field.col].isStart = false;
-      }
-      if (thisFinder.grid[field.row][field.col].isEnd === true){
-        thisFinder.grid[field.row][field.col].isEnd = false;
-      }
-      if (thisFinder.grid[field.row][field.col].isWall === false){
-        thisFinder.grid[field.row][field.col].isWall = true;
-      }
+      thisFinder.grid[field.row][field.col].f = 0;
+      thisFinder.grid[field.row][field.col].g = 0;
+      thisFinder.grid[field.row][field.col].h = 0;
+      thisFinder.grid[field.row][field.col].neighbors = [];
+      thisFinder.grid[field.row][field.col].previous = undefined;
+      thisFinder.grid[field.row][field.col].isClicked = false;
+      thisFinder.grid[field.row][field.col].isStart = false;
+      thisFinder.grid[field.row][field.col].isEnd = false;
+      thisFinder.grid[field.row][field.col].isWall = true;
     }
   }
 
@@ -192,6 +189,7 @@ class Finder {
       }
     }
 
+    //  FIRST CLICK
     else {
       for (let square of thisFinder.gridValues){
         if (square.neighbors.includes(thisFinder.grid[field.row][field.col])){
@@ -216,9 +214,8 @@ class Finder {
 
     if (thisFinder.grid[field.row][field.col].isStart === true
         &&
-      fieldElement.classList.contains(classNames.square.start)
-        &&
-      thisFinder.counter === 1)
+      thisFinder.counter === 1
+      )
     {
       thisFinder.grid[field.row][field.col].isStart = false;
       fieldElement.classList.remove(classNames.square.start);
@@ -232,12 +229,11 @@ class Finder {
     else
     if (thisFinder.grid[field.row][field.col].isClicked === true
         &&
-      fieldElement.classList.contains(classNames.square.activeRoad)
-        &&
-        thisFinder.counter === 0)
+        thisFinder.counter === 0
+        )
     {
-      fieldElement.classList.remove(classNames.square.activeRoad);
       thisFinder.grid[field.row][field.col].isStart = true;
+      fieldElement.classList.remove(classNames.square.activeRoad);
       fieldElement.classList.add(classNames.square.start);
       thisFinder.counter++;
 
@@ -257,9 +253,8 @@ class Finder {
 
     if (thisFinder.grid[field.row][field.col].isEnd === true
         &&
-      fieldElement.classList.contains(classNames.square.end)
-        &&
-      thisFinder.counter === 2)
+      thisFinder.counter === 2
+      )
     {
       thisFinder.grid[field.row][field.col].isEnd = false;
       fieldElement.classList.remove(classNames.square.end);
@@ -274,10 +269,11 @@ class Finder {
         &&
       fieldElement.classList.contains(classNames.square.activeRoad)
         &&
-      thisFinder.counter === 1)
+      thisFinder.counter === 1
+      )
     {
-      fieldElement.classList.remove(classNames.square.activeRoad);
       thisFinder.grid[field.row][field.col].isEnd = true;
+      fieldElement.classList.remove(classNames.square.activeRoad);
       fieldElement.classList.add(classNames.square.end);
       thisFinder.counter++;
 
@@ -296,6 +292,7 @@ class Finder {
           lowestIndex = i;
         }
       }
+
       let current = thisFinder.openSet[lowestIndex];
 
       //  FINDING PATH
@@ -337,9 +334,9 @@ class Finder {
     }
 
     //  DISPLAY RESULTS DOM
-    for (let i = 0; i < thisFinder.path.length; i++){
-      const pathNode = thisFinder.path[i];
-      document.querySelector(`[data-row="${pathNode.i}"][data-col="${pathNode.j}"]`).className = 'square path';
+    for (let p = 0; p < thisFinder.path.length; p++){
+      const pathNode = thisFinder.path[p];
+      thisFinder.element.querySelector(`[data-row="${pathNode.i}"][data-col="${pathNode.j}"]`).className = 'square path';
     }
   }
 
@@ -390,13 +387,13 @@ class Finder {
     thisFinder.setupGrid();
     thisFinder.initActions();
 
-    console.log('---------------------------------------------------');
+    console.log('-------------------------------');
     console.log('path:', thisFinder.path);
     console.log('open:', thisFinder.openSet);
     console.log('closed:', thisFinder.closedSet);
     console.log('start:', thisFinder.start);
     console.log('end:', thisFinder.end);
-    console.log('---------------------------------------------------');
+    console.log('-------------------------------');
   }
 }
 
