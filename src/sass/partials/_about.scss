@@ -14,6 +14,7 @@
 
 .image__wrapper__one {
   padding-left: 11rem;
+  position: relative;
 }
 
 .image__one {
@@ -21,8 +22,7 @@
   background-position: center;
   width: 48rem;
   height: 29rem;
-  margin-top: -22rem;
-  position: relative;
+  margin-top: -7rem;
   z-index: 1;
   filter: drop-shadow(1rem 1rem 1rem rgba(0, 0, 0, 1));
 }
@@ -38,6 +38,7 @@
 .image__wrapper__two {
   padding-left: 37rem;
   margin-top: 4rem;
+  position: relative;
 }
 
 .image__two {
@@ -45,7 +46,6 @@
   background-position: center;
   width: 77rem;
   height: 40rem;
-  position: relative;
   z-index: 1;
   filter: drop-shadow(0rem 1rem 1rem rgba(0, 0, 0, 1));
 }
@@ -61,7 +61,6 @@
 .footer__wrapper__about {
   text-align: center;
   padding: 2.8rem;
-  padding-bottom: 0;
   letter-spacing: 0.2rem;
   font-size: 0.9rem;
   color: rgb(219, 219, 219);
@@ -69,47 +68,62 @@
 
 @media screen and (max-width: 480px) {
   .about__gallery {
+    width: 100%;
+
     h2 {
-      font-size: 1.5rem;
+      width: 100%;
+      font-size: 1rem;
     }
 
     p {
-      font-size: 1.2rem;
+      width: 100%;
+      font-size: 0.9rem;
+      letter-spacing: 0.05rem;
     }
   }
 
   .image__wrapper__one {
+    width: 100%;
     padding: 0;
+    margin-top: -40%;
+    margin-left: -2rem;
   }
 
   .image__one {
-    width: 37rem;
-    height: 20rem;
-    margin-top: -5rem;
-  }
-
-  .image__two {
-    width: 37rem;
-    height: 20rem;
+    width: 100%;
+    height: 10rem;
+    background-size: cover;
+    margin-top: 0;
   }
 
   .image__wrapper__two {
+    width: 100%;
     padding: 0;
+    margin-top: 3rem;
   }
 
-  .image__description__two {
-    width: 25rem;
-    bottom: -6.5rem;
-    left: 15rem;
+  .image__two {
+    width: 100%;
+    height: 10rem;
+    background-size: cover;
   }
 
   .image__description__one {
-    width: 25rem;
-    bottom: -30.5rem;
-    left: 15rem;
+    width: 90%;
+    bottom: -1.2rem;
+    left: 6.5rem;
+    letter-spacing: 0.1rem;
+  }
+
+  .image__description__two {
+    width: 110%;
+    bottom: -1.2rem;
+    left: -2rem;
+    letter-spacing: 0.1rem;
   }
 
   .footer__wrapper__about {
-    margin-top: 7.5rem;
+    width: 100%;
+    margin-top: 3rem;
   }
 }

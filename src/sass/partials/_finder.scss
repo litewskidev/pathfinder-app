@@ -1,8 +1,15 @@
-#finderGrid {
+.finder__main {
   position: relative;
-  left: 50%;
-  //margin-top: -5.75rem;
-  transform: translate(-50%, -50%);
+}
+
+.finder__map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#finderGrid {
+  margin-top: -5.75rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -12,7 +19,7 @@
   width: 4rem;
   height: 4rem;
   cursor: pointer;
-  border: 2px solid #fffffff0;
+  border: 1px solid #fffffff0;
   filter: drop-shadow(1rem 0.5rem 1rem rgba(0, 0, 0, 1));
 
   &.path {
@@ -71,28 +78,41 @@
 
 @media screen and (max-width: 480px) {
   .square {
-    width: 3.75rem;
-    height: 3.75rem;
+    width: 2.2rem;
+    height: 2.2rem;
   }
 
   #finderGrid {
-    margin-top: 7.5rem;
-    padding: 1rem;
+    position: absolute;
+    margin-top: 0;
+    padding: 0;
+    max-width: 23rem;
   }
 
   .finder__description {
-    left: 80%;
     text-align: center;
     font-size: 1.6rem;
     width: 100%;
-    margin-top: -20.5rem;
+    top: 13rem;
+    z-index: 999;
+
+    h2 {
+      min-width: 100%;
+      font-size: 1.55rem;
+    }
   }
 
   .finder__button {
-    margin-top: -19rem;
+    margin-top: 12.5rem;
+
+    button {
+      border-radius: 2rem;
+    }
   }
 
   .footer__wrapper__finder {
-    padding-top: 10.5rem;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 2.8rem;
   }
 }

@@ -106,10 +106,10 @@ class Finder {
         thisFinder.toggleFinish(e.target);
       });
 
-      thisFinder.element.querySelector(select.elements.button).addEventListener('click', e => {
-        e.preventDefault();
-        thisFinder.changeStep(3);
-      });
+        thisFinder.element.querySelector(select.elements.button).addEventListener('click', e => {
+          e.preventDefault();
+          thisFinder.changeStep(3);
+        });
     }
 
     //  STEP THREE

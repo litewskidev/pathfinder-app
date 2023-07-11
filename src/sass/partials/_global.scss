@@ -3,6 +3,7 @@
 }
 
 body {
+  width: 100%;
   margin: 0;
   padding: 0;
   background: $dark;
@@ -10,8 +11,8 @@ body {
   font-size: $base-size;
   font-weight: $font-normal;
   color: $white;
-  display: flex;
-  flex-direction: column;
+  cursor: default;
+  scroll-behavior: smooth;
 }
 
 .container {
@@ -26,11 +27,5 @@ body {
 
   > .active {
     display: flex;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  html {
-    width: 40.5rem;
   }
 }
