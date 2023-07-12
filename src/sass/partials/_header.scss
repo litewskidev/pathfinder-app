@@ -1,6 +1,6 @@
 .header__wrapper {
   background: url('../images/background.jpg');
-  min-height: 50rem;
+  min-height: 65rem;
   width: 100%;
   background-position: center;
   background-size: cover;
@@ -11,7 +11,7 @@
 .nav__wrapper {
   display: flex;
   justify-content: center;
-  padding-top: 3rem;
+  padding-top: 5rem;
 
   .main__nav {
     display: flex;
@@ -21,7 +21,7 @@
     a {
       text-decoration: none;
       color: $white;
-      font-size: 1.7rem;
+      font-size: 2rem;
       letter-spacing: 0.2rem;
       filter: drop-shadow(0rem 0rem 1rem rgba(0, 0, 0, 0.5));
     }
@@ -31,49 +31,62 @@
 .page__title {
   display: inline-flex;
   flex-direction: column;
-  margin-top: 12rem;
+  margin-top: 10rem;
   filter: drop-shadow(0rem 1rem 1rem rgba(0, 0, 0, 1));
 
   h1 {
-    font-size: 5rem;
-    letter-spacing: 3rem;
+    font-size: 4.7rem;
+    letter-spacing: 2.5rem;
     margin: 0;
   }
 
   h2 {
     display: flex;
     justify-content: flex-end;
-    font-size: 1.7rem;
-    letter-spacing: 0.6rem;
+    font-size: 2rem;
+    letter-spacing: 0.7rem;
     margin: 0;
-    margin-right: 2.7rem;
+    margin-right: 2rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header__wrapper {
+    min-height: 40rem;
+  }
+
+  .page__title {
+    margin-top: 6rem;
+
+    h1 {
+      font-size: 2.9rem;
+      letter-spacing: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      letter-spacing: 0.5rem;
+      margin-right: 1rem;
+    }
   }
 }
 
 @media screen and (max-width: 540px) {
-
   .header__wrapper {
     min-height: 30rem;
   }
 
   .nav__wrapper {
     width: 100%;
-    display: flex;
-    justify-content: center;
     padding-top: 3rem;
 
     .main__nav {
-      display: flex;
-      justify-content: space-between;
       gap: 3rem;
 
-      a {
-        text-decoration: none;
-        color: $white;
-        font-size: 1.7rem;
-        letter-spacing: 0.2rem;
-        filter: drop-shadow(0rem 0rem 1rem rgba(0, 0, 0, 0.5));
-      }
+    a {
+      font-size: 1.7rem;
+      letter-spacing: 0.2rem;
+    }
     }
   }
 
@@ -88,8 +101,8 @@
 
     h2 {
       font-size: 1rem;
-      margin-right: -0.4rem;
-      letter-spacing: 0.5rem;
+      margin-right: -1.2rem;
+      letter-spacing: 0.3rem;
     }
   }
 }
