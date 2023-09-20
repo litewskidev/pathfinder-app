@@ -303,7 +303,6 @@ class Finder {
           thisFinder.path.push(temp.previous);
           temp = temp.previous;
         }
-        console.log('DONE!');
       }
 
       thisFinder.removeFromArray(thisFinder.openSet, current);
@@ -386,14 +385,6 @@ class Finder {
     thisFinder.element.innerHTML = generatedHTML;
     thisFinder.setupGrid();
     thisFinder.initActions();
-
-    console.log('-------------------------------');
-    console.log('path:', thisFinder.path);
-    console.log('open:', thisFinder.openSet);
-    console.log('closed:', thisFinder.closedSet);
-    console.log('start:', thisFinder.start);
-    console.log('end:', thisFinder.end);
-    console.log('-------------------------------');
   }
 }
 

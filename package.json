@@ -1,6 +1,5 @@
 {
-    "homepage": "https://litewskidev.github.io/pathfinder-app",
-    "name": "task-runner",
+    "name": "pathfinder",
     "version": "1.0.0",
     "description": "",
     "main": "index.html",
